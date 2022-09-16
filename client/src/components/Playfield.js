@@ -22,17 +22,14 @@ export default function GameField() {
   const [ field, setField ] = useState(initialState(FIELDSIZE));
   const [ selectedCount, setSelectedCount ] = useState(0);
   const [ matches, setMatches ] = useState([]);
-
-/*   useEffect(() => {
-    // watch for selected count to hit 2
-    // reset selected for each square once 2 are selected
+  
+  function updateSelected() {
     if (selectedCount === 2) {
       const newField = field.map(square => { return {i: square.i, j: square.j, selected: false, matched: square.matched}});
-      // DONT DO THIS
       setField(newField);
       setSelectedCount(0);
     }
-  }, [selectedCount, field, matches]); */
+  }
   
   function toggleSelected(i, j) {
     /**
@@ -99,6 +96,7 @@ export default function GameField() {
             checkSelected={checkSelected}
             incrementSelectedCount={incrementSelectedCount}
             selectedCount={selectedCount}
+            updateSelected={updateSelected}
           />
         </div>
         )

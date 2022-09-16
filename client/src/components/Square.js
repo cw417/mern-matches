@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-export default function Square({ square, toggleSelected, checkSelected, incrementSelectedCount, selectedCount }) {
+export default function Square({ square, toggleSelected, checkSelected, incrementSelectedCount, selectedCount, updateSelected }) {
 
   const backgroundColor = square.selected ? 'blue' : 'yellow';
 
@@ -8,8 +8,9 @@ export default function Square({ square, toggleSelected, checkSelected, incremen
     if (backgroundColor === 'yellow') {
       // if not selected
       toggleSelected(square.i, square.j);
-      checkSelected(square.i, square.j)
+      checkSelected(square.i, square.j);
       incrementSelectedCount();
+      updateSelected();
     }
     else {
       // if selected

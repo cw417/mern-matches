@@ -2,6 +2,8 @@ import React from 'react';
 
 export default function Sidebar() {
   return (
-    <div>Sidebar</div>
+    <div className='flex flex-col items-center w-1/4'>
+      <div>Sidebar</div>
+    </div>
   )
 }

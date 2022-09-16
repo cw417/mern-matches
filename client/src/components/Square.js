@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function Square() {
+export default function Square({ square }) {
   return (
-    <div>Square</div>
+    <div>{square.win? "T" : "F"}</div>
   )
 }

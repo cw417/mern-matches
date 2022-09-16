@@ -10,13 +10,9 @@ function App() {
       <div>
         <Topbar />
       </div>
-      <div className='flex flex-row'>
-        <div>
-          <Sidebar />
-        </div>
-        <div>
-          <Playfield />
-        </div>
+      <div className='flex flex-row w-full'>
+        <Sidebar />
+        <Playfield />
       </div>
     </div>
   );

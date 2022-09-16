@@ -22,18 +22,23 @@ export default function GameField() {
   
   
   function playfield() {
+
+      console.log(field)
     return (
-      field.map((item, index) => {
+      field.map((square, index) => {
+        return (
         <div key={index}>
-          <Square />
+          <Square square={square} />
         </div>
+        )
       })
     )
   }
 
   return (
     <div>
-      <div className='grid-cols-4 grid-rows-4'>
+      <div>playfield</div>
+      <div className='grid grid-cols-4 grid-rows-4'>
         {playfield()}
       </div>
     </div>

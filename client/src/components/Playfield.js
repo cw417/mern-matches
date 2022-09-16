@@ -59,12 +59,15 @@ export default function GameField() {
   function checkSelected(i, j) {
     /**
      * Check if the other square from the pair is selected. 
+     * Increment matches count if pair is found.
      * @return {boolean}    True if the other pair is selected.
      */
     console.log(`checking: ${i}, ${j}`)
     field.forEach(square => {
       if (square.i === i && square.j !== j && square.selected) {
         console.log(`Found match: ${square.i}, ${square.j}`)
+        const newMatches = matches + 1;
+        setMatches(newMatches);
         return true;
       }
     })

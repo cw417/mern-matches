@@ -35,8 +35,7 @@ export default function GameField() {
   }
 
   return (
-    <div className='flex flex-col items-center w-full'>
-      <div>playfield</div>
+    <div className='flex flex-col items-center w-full mt-6'>
       <div className='grid grid-cols-4 grid-rows-4'>
         {playfield()}
       </div>

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import Square from './Square';
 
 function initialState(n) {
@@ -19,11 +19,12 @@ function initialState(n) {
 export default function GameField() {
   
   const FIELDSIZE = 16;
-  const [ field, setField ] = useState(initialState(FIELDSIZE))
+  const [ field, setField ] = useState(initialState(FIELDSIZE));
+  const [ selectedCount, setSelectedCount ] = useState(0);
   
   function toggleSelected(i, j) {
     /**
-     * Toggle the 'selected' property of the {i, j} element.
+     * Toggle the 'selected' property of the {i, j} element of a Square.
      */
     const currentSquare = field.find(square => square.i === i && square.j === j);
     const index = field.indexOf(currentSquare);
@@ -31,6 +32,21 @@ export default function GameField() {
     const newField = [...field];
     newField.splice(index, 1, newSquare);
     setField(newField);
+  }
+
+  function checkSelected(i, j) {
+    /**
+     * Check if the other square from the pair is selected. 
+     * @return {boolean}    True if the other pair is selected.
+     */
+    console.log(`checking: ${i}, ${j}`)
+    field.forEach(square => {
+      if (square.i === i && square.j !== j && square.selected) {
+        console.log(`Found match: ${square.i}, ${square.j}`)
+        return true;
+      }
+    })
+    return false;
   }
   
   function playfield() {
@@ -41,6 +57,7 @@ export default function GameField() {
           <Square
             square={square}
             toggleSelected={toggleSelected}
+            checkSelected={checkSelected}
           />
         </div>
         )

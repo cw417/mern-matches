@@ -31,9 +31,10 @@ export default function GameField() {
     if (selectedCount === 2) {
       const newField = field.map(square => { return {i: square.i, j: square.j, selected: false, matched: square.matched}});
       setField(newField);
-      console.log(field)
+      console.log(field);
+      setSelectedCount(0);
     }
-  }, [selectedCount])
+  }, [selectedCount]);
   
   function toggleSelected(i, j) {
     /**
@@ -84,6 +85,7 @@ export default function GameField() {
             toggleSelected={toggleSelected}
             checkSelected={checkSelected}
             incrementSelectedCount={incrementSelectedCount}
+            selectedCount={selectedCount}
           />
         </div>
         )

@@ -1,8 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
-export default function Square({ square, toggleSelected, checkSelected, incrementSelectedCount }) {
+export default function Square({ square, toggleSelected, checkSelected, incrementSelectedCount, selectedCount }) {
 
   const [ backgroundColor, setBackgroundColor ] = useState('yellow');
+
+  useEffect(() => {
+    if (square.selected) {
+      setBackgroundColor('blue')} 
+    else {
+      setBackgroundColor('yellow')};
+  }, [square.selected])
 
   function handleSelect() {
     if (backgroundColor === 'yellow') {

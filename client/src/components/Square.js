@@ -29,7 +29,7 @@ export default function Square({ square, toggleSelected, checkSelected, incremen
   return (
     <div 
       className='m-4'
-      onClick={handleSelect}
+      onClick={() => handleSelect()}
       style={{backgroundColor:backgroundColor}}
     >{`i: ${square.i}, j: ${square.j}`}</div>
   )

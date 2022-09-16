@@ -21,23 +21,28 @@ export default function GameField() {
   const FIELDSIZE = 16;
   const [ field, setField ] = useState(initialState(FIELDSIZE));
   const [ selectedCount, setSelectedCount ] = useState(0);
-  const [ matches, setMatches ] = useState(0);
+  const [ matches, setMatches ] = useState([]);
 
   //useEffect(() => { console.log(field) }, [field])
 
   useEffect(() => {
+
+  })
+
+  useEffect(() => {
     // watch for selected count to hit 2
     // reset selected for each square once 2 are selected
+    console.log('matches')
+    console.log(matches)
     if (selectedCount === 2) {
-      console.log('Field:')
-      console.log(field)
       const newField = field.map(square => { return {i: square.i, j: square.j, selected: false, matched: square.matched}});
       setField(newField);
-      console.log(field);
       setSelectedCount(0);
     }
-  }, [selectedCount]);
+  }, [selectedCount, field, matches]);
   
+
+
   function toggleSelected(i, j) {
     /**
      * Toggle the 'selected' property of the (i, j) Square.
@@ -54,13 +59,19 @@ export default function GameField() {
     /**
      * Toggle the 'matched' property of the (i, j) Square.
      */
+    const newMatches = [...matches, {i: i, j: j, selected: false, matched: true}]
+    setMatches(newMatches);
     const currentSquare = field.find(square => square.i === i && square.j === j);
     const index = field.indexOf(currentSquare);
     const newSquare = {i: i, j: j, selected: false, matched: true};
     const newField = [...field];
     newField.splice(index, 1, newSquare);
-    setField(newField);
-    console.log(`new field: ${newField}`)
+    setField(newField); //this line is not working properly
+      // newField is correct, but field is not being updated
+      // when the useEffect runs, field has not been set with matched updated
+    setField(prevField => {
+      return newField
+    })
   }
 
   function incrementSelectedCount() {
@@ -83,8 +94,6 @@ export default function GameField() {
         console.log(`Found match: ${square.i}, ${square.j}`)
         toggleMatched(i, j);
         toggleMatched(i, j===0 ? 1 : 0);
-        const newMatches = matches + 1;
-        setMatches(newMatches);
         toggleSelected(i, j===0 ? 1 : 0);
         return true;
       }

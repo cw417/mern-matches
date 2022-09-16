@@ -23,26 +23,17 @@ export default function GameField() {
   const [ selectedCount, setSelectedCount ] = useState(0);
   const [ matches, setMatches ] = useState([]);
 
-  //useEffect(() => { console.log(field) }, [field])
-
-  useEffect(() => {
-
-  })
-
   useEffect(() => {
     // watch for selected count to hit 2
     // reset selected for each square once 2 are selected
-    console.log('matches')
-    console.log(matches)
     if (selectedCount === 2) {
       const newField = field.map(square => { return {i: square.i, j: square.j, selected: false, matched: square.matched}});
+      // DONT DO THIS
       setField(newField);
       setSelectedCount(0);
     }
   }, [selectedCount, field, matches]);
   
-
-
   function toggleSelected(i, j) {
     /**
      * Toggle the 'selected' property of the (i, j) Square.
@@ -59,19 +50,15 @@ export default function GameField() {
     /**
      * Toggle the 'matched' property of the (i, j) Square.
      */
-    const newMatches = [...matches, {i: i, j: j, selected: false, matched: true}]
-    setMatches(newMatches);
-    const currentSquare = field.find(square => square.i === i && square.j === j);
-    const index = field.indexOf(currentSquare);
     const newSquare = {i: i, j: j, selected: false, matched: true};
+    const newMatches = [...matches, newSquare]
+    setMatches(newMatches);
+    const index = field.findIndex(square => square.i === i && square.j === j);
     const newField = [...field];
     newField.splice(index, 1, newSquare);
     setField(newField); //this line is not working properly
       // newField is correct, but field is not being updated
       // when the useEffect runs, field has not been set with matched updated
-    setField(prevField => {
-      return newField
-    })
   }
 
   function incrementSelectedCount() {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-export default function Square({ square }) {
+export default function Square({ square, toggleSelected }) {
 
   const [ backgroundColor, setBackgroundColor ] = useState('yellow');
 
@@ -8,10 +8,12 @@ export default function Square({ square }) {
     if (backgroundColor === 'yellow') {
       // if not selected
       setBackgroundColor('blue');
+      toggleSelected(square.i, square.j);
     }
     else {
       // if selected
       setBackgroundColor('yellow');
+      toggleSelected(square.i, square.j);
     }
   }
 

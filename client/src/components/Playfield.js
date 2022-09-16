@@ -3,15 +3,16 @@ import Square from './Square';
 
 function initialState(n) {
   /**
-   * Return array of n boolean elements where one is true and the rest false.
-   * @return {boolean[]}     Array of n boolean elements with only one set to true.
+   * Return array of n boolean elements in random order where each element is paired with another.
+   * @return {boolean[]}     Array of n boolean element pairs.
    */
   const returnArray = [];
-  for (let i = 0; i < n-1; i++) {
-    returnArray.push({win: false});
+  for (let i = 0; i < n/2; i++) {
+    for (let j = 0; j < 2; j++) {
+      const randNum = (Math.random() * n);
+      returnArray.splice(randNum, 0, {i: i, j: j})
+    }
   }
-  const randNum = (Math.random() * n);
-  returnArray.splice(randNum, 0, {win: true});
   return returnArray;
 }
 
@@ -22,8 +23,6 @@ export default function GameField() {
   
   
   function playfield() {
-
-      console.log(field)
     return (
       field.map((square, index) => {
         return (
@@ -36,7 +35,7 @@ export default function GameField() {
   }
 
   return (
-    <div>
+    <div className='flex flex-col items-center w-full'>
       <div>playfield</div>
       <div className='grid grid-cols-4 grid-rows-4'>
         {playfield()}

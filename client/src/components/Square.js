@@ -2,6 +2,6 @@ import React from 'react'
 
 export default function Square({ square }) {
   return (
-    <div>{square.win? "T" : "F"}</div>
+    <div className='m-4'>{`i: ${square.i}, j: ${square.j}`}</div>
   )
 }

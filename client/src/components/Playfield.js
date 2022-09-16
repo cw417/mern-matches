@@ -23,7 +23,7 @@ export default function GameField() {
   const [ selectedCount, setSelectedCount ] = useState(0);
   const [ matches, setMatches ] = useState([]);
 
-  useEffect(() => {
+/*   useEffect(() => {
     // watch for selected count to hit 2
     // reset selected for each square once 2 are selected
     if (selectedCount === 2) {
@@ -32,7 +32,7 @@ export default function GameField() {
       setField(newField);
       setSelectedCount(0);
     }
-  }, [selectedCount, field, matches]);
+  }, [selectedCount, field, matches]); */
   
   function toggleSelected(i, j) {
     /**

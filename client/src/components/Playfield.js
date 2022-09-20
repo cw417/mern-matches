@@ -24,26 +24,30 @@ export default function GameField() {
   const [ matches, setMatches ] = useState([])
 
   useEffect(() => {
-    if (matches.length === (FIELDSIZE / 2)) { console.log('You win!') };
+    if (matches.length === (FIELDSIZE / 2)) { console.log('You win!'); alert('You win!') };
   }, [matches]);
 
   function toggleSelected(i, j) {
     /**
      * Toggle the 'selected' property of the (i, j) Square.
      */
-    if (selected) {
-      // if already selected, check for match, set selected to null, reset all selected
-      checkForMatch(i, j);
-      setSelected(null);
-      unselectedAll();
-      return;
-    };
+    // toggle the given square
     const currentSquare = field.find(square => square.i === i && square.j === j);
     const index = field.indexOf(currentSquare);
     const newSquare = {i: i, j: j, selected: !currentSquare.selected};
     const newField = [...field];
     newField.splice(index, 1, newSquare);
+    
     setField(newField);
+    if (selected) {
+      // if already selected, check for match, set selected to null, reset all selected
+      setTimeout(function() {
+        checkForMatch(i, j);
+        setSelected(null);
+        unselectedAll();
+      }, 1000);
+      return;
+    };
     setSelected({ i: i, j: j });
   }
 

@@ -5,3 +5,7 @@
 html, body {
   background-color: grey;
 }
+
+.square {
+  @apply rounded p-12 text-3xl font-bold;
+}

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 export default function Square({ square, matches, toggleSelected }) {
 
   const backgroundColor = square.selected ? 'blue' : 'yellow';
+  const textColor = square.selected ? 'white': 'yellow';
   const display = matches.includes(square.i) ? 'none' : 'block';
   
   function handleClick() {
@@ -11,9 +12,9 @@ export default function Square({ square, matches, toggleSelected }) {
   
   return (
     <div 
-      className='m-4'
+      className='square m-4'
       onClick={() => handleClick()}
-      style={{backgroundColor:backgroundColor, display: display}}
-    >{`i: ${square.i}, j: ${square.j}`}</div>
+      style={{display: display, color: textColor, backgroundColor:backgroundColor}}
+    >{`${square.i}`}</div>
   )
 }

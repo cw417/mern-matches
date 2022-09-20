@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react'
 
-export default function Square({ square, toggleSelected, checkSelected, incrementSelectedCount, selectedCount, updateSelected }) {
+export default function Square({ square, matches, toggleSelected }) {
 
   const backgroundColor = square.selected ? 'blue' : 'yellow';
-
-  function handleSelect() {
-    if (backgroundColor === 'yellow') {
-      // if not selected
-      toggleSelected(square.i, square.j);
-      checkSelected(square.i, square.j);
-      incrementSelectedCount();
-      updateSelected();
-    }
-    else {
-      // if selected
-      toggleSelected(square.i, square.j);
-    }
+  const display = matches.includes(square.i) ? 'none' : 'block';
+  
+  function handleClick() {
+    toggleSelected(square.i, square.j);
   }
-
+  
   return (
     <div 
       className='m-4'
-      onClick={() => handleSelect()}
-      style={{backgroundColor:backgroundColor}}
+      onClick={() => handleClick()}
+      style={{backgroundColor:backgroundColor, display: display}}
     >{`i: ${square.i}, j: ${square.j}`}</div>
   )
 }

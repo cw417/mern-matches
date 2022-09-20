@@ -10,7 +10,7 @@ function initialState(n) {
   for (let i = 0; i < n/2; i++) {
     for (let j = 0; j < 2; j++) {
       const randNum = (Math.random() * n);
-      returnArray.splice(randNum, 0, {i: i, j: j, selected: false, matched: false});
+      returnArray.splice(randNum, 0, {i: i, j: j, selected: false});
     }
   }
   return returnArray;
@@ -20,69 +20,48 @@ export default function GameField() {
   
   const FIELDSIZE = 16;
   const [ field, setField ] = useState(initialState(FIELDSIZE));
-  const [ selectedCount, setSelectedCount ] = useState(0);
-  const [ matches, setMatches ] = useState([]);
-  
-  function updateSelected() {
-    if (selectedCount === 2) {
-      const newField = field.map(square => { return {i: square.i, j: square.j, selected: false, matched: square.matched}});
-      setField(newField);
-      setSelectedCount(0);
-    }
-  }
-  
+  const [ selected, setSelected ] = useState(null);
+  const [ matches, setMatches ] = useState([])
+
+  useEffect(() => {
+    if (matches.length === (FIELDSIZE / 2)) { console.log('You win!') };
+  }, [matches]);
+
   function toggleSelected(i, j) {
     /**
      * Toggle the 'selected' property of the (i, j) Square.
      */
+    if (selected) {
+      // if already selected, check for match, set selected to null, reset all selected
+      checkForMatch(i, j);
+      setSelected(null);
+      unselectedAll();
+      return;
+    };
     const currentSquare = field.find(square => square.i === i && square.j === j);
     const index = field.indexOf(currentSquare);
-    const newSquare = {i: i, j: j, selected: !currentSquare.selected, matched: currentSquare.matched};
+    const newSquare = {i: i, j: j, selected: !currentSquare.selected};
     const newField = [...field];
     newField.splice(index, 1, newSquare);
     setField(newField);
+    setSelected({ i: i, j: j });
   }
 
-  function toggleMatched(i, j) {
-    /**
-     * Toggle the 'matched' property of the (i, j) Square.
-     */
-    const newSquare = {i: i, j: j, selected: false, matched: true};
-    const newMatches = [...matches, newSquare]
-    setMatches(newMatches);
-    const index = field.findIndex(square => square.i === i && square.j === j);
-    const newField = [...field];
-    newField.splice(index, 1, newSquare);
-    setField(newField); //this line is not working properly
-      // newField is correct, but field is not being updated
-      // when the useEffect runs, field has not been set with matched updated
+  function unselectedAll() {
+    const newField = field.map(square => { return {i: square.i, j: square.j, selected: false} });
+    setField(newField);
   }
 
-  function incrementSelectedCount() {
-    /**
-     * Increments selectedCount by 1.
-     */
-    const newSelectedCount = selectedCount + 1;
-    setSelectedCount(newSelectedCount);
-  }
-
-  function checkSelected(i, j) {
-    /**
-     * Check if the other square from the pair is selected. 
-     * Increment matches count if pair is found.
-     * @return {boolean}    True if the other pair is selected.
-     */
-    console.log(`checking: ${i}, ${j}`)
-    field.forEach(square => {
-      if (square.i === i && square.j !== j && square.selected) {
-        console.log(`Found match: ${square.i}, ${square.j}`)
-        toggleMatched(i, j);
-        toggleMatched(i, j===0 ? 1 : 0);
-        toggleSelected(i, j===0 ? 1 : 0);
-        return true;
-      }
-    })
-    return false;
+  function checkForMatch(i, j) {
+    // if match
+    if (selected.i === i && selected.j !== j) {
+      console.log(`match found: i: ${i}`);
+      if (!matches.includes(i)) { 
+        const newMatches = [...matches, i];
+        setMatches(newMatches);
+       }
+    }
+    console.log(`matches: ${matches}`)
   }
   
   function playfield() {
@@ -91,12 +70,9 @@ export default function GameField() {
         return (
         <div key={index}>
           <Square
-            square={square}
-            toggleSelected={toggleSelected}
-            checkSelected={checkSelected}
-            incrementSelectedCount={incrementSelectedCount}
-            selectedCount={selectedCount}
-            updateSelected={updateSelected}
+          square={square}
+          toggleSelected={toggleSelected}
+          matches={matches}
           />
         </div>
         )

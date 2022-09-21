@@ -6,12 +6,8 @@ import './App.css';
 function App() {
   return (
     <div className='flex flex-col items-center'>
-      <div>
-        <Topbar />
-      </div>
-      <div className='flex flex-row w-full'>
-        <Playfield />
-      </div>
+      <Topbar />
+      <Playfield />
     </div>
   );
 }

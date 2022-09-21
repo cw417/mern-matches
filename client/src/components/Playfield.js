@@ -23,7 +23,17 @@ export default function GameField() {
 
   const [ field, setField ] = useState(initialState(FIELDSIZE));
   const [ selected, setSelected ] = useState(null);
-  const [ matches, setMatches ] = useState([])
+  const [ matches, setMatches ] = useState([]);
+  const [ time, setTime ] = useState(0);
+
+  // timer
+  useEffect(() => { 
+    const timer = setInterval(() => {
+      setTime((time) => time + 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+   }, []);
 
   useEffect(() => {
     if (matches.length === (FIELDSIZE / 2)) { 
@@ -72,7 +82,7 @@ export default function GameField() {
     }
     console.log(`matches: ${matches}`)
   }
-  
+
   function playfield() {
     return (
       field.map((square, index) => {
@@ -90,8 +100,9 @@ export default function GameField() {
   }
 
   return (
-    <div className='flex flex-col items-center w-full mt-6'>
-      <div className='grid grid-cols-4 grid-rows-4'>
+    <div className='flex flex-col items-center w-full'>
+      <div className='text-2xl'>Time: {time}</div>
+      <div className='grid grid-cols-4 grid-rows-4 mt-4'>
         {playfield()}
       </div>
     </div>

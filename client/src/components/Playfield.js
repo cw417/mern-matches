@@ -19,12 +19,17 @@ function initialState(n) {
 export default function GameField() {
   
   const FIELDSIZE = 16;
+  const RESET_SELECTED_DELAY = 500;
+
   const [ field, setField ] = useState(initialState(FIELDSIZE));
   const [ selected, setSelected ] = useState(null);
   const [ matches, setMatches ] = useState([])
 
   useEffect(() => {
-    if (matches.length === (FIELDSIZE / 2)) { console.log('You win!'); alert('You win!') };
+    if (matches.length === (FIELDSIZE / 2)) { 
+      console.log('You win!'); 
+      window.location.reload();
+    };
   }, [matches]);
 
   function toggleSelected(i, j) {
@@ -45,7 +50,7 @@ export default function GameField() {
         checkForMatch(i, j);
         setSelected(null);
         unselectedAll();
-      }, 1000);
+      }, RESET_SELECTED_DELAY);
       return;
     };
     setSelected({ i: i, j: j });

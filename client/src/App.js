@@ -1,7 +1,6 @@
 import React from 'react';
 import Topbar from './components/Topbar';
 import Playfield from './components/Playfield';
-import Sidebar from './components/Sidebar';
 import './App.css';
 
 function App() {
@@ -11,7 +10,6 @@ function App() {
         <Topbar />
       </div>
       <div className='flex flex-row w-full'>
-        <Sidebar />
         <Playfield />
       </div>
     </div>

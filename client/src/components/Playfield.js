@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Square from './Square';
+import Sidebar from './Sidebar';
 
 function initialState(n) {
   /**
@@ -25,6 +26,21 @@ export default function GameField() {
   const [ selected, setSelected ] = useState(null);
   const [ matches, setMatches ] = useState([]);
   const [ time, setTime ] = useState(0);
+  const [ scores, setScores ] = useState([]);
+
+  // local storage setup
+  const LOCAL_STORAGE_KEY = 'matchApp.scores'
+
+  // local storage setup
+  useEffect(() => {
+    const storedScores = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedScores) setScores(storedScores)
+  }, []);
+
+  // local storage setup
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(scores))
+  }, [scores]);
 
   // timer
   useEffect(() => { 
@@ -35,12 +51,14 @@ export default function GameField() {
     return () => clearInterval(timer);
    }, []);
 
-  useEffect(() => {
+  // watch for win condition
+  /* useEffect(() => {
     if (matches.length === (FIELDSIZE / 2)) { 
-      console.log('You win!'); 
+      const newScores = [...scores, time];
+      setScores(newScores);
       window.location.reload();
     };
-  }, [matches]);
+  }, [matches]); */
 
   function toggleSelected(i, j) {
     /**
@@ -81,6 +99,11 @@ export default function GameField() {
        }
     }
     console.log(`matches: ${matches}`)
+    if (matches.length === (FIELDSIZE / 2) -1) { 
+      const newScores = [...scores, time];
+      setScores(newScores);
+      window.location.reload();
+    }
   }
 
   function playfield() {
@@ -102,8 +125,11 @@ export default function GameField() {
   return (
     <div className='flex flex-col items-center w-full'>
       <div className='text-2xl'>Time: {time}</div>
-      <div className='grid grid-cols-4 grid-rows-4 mt-4'>
-        {playfield()}
+      <div className='flex flex-row w-full'>
+        <Sidebar scores={scores} />
+        <div className='grid grid-cols-4 grid-rows-4 mt-4'>
+          {playfield()}
+        </div>
       </div>
     </div>
   )

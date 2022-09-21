@@ -13,7 +13,7 @@ export default function Sidebar({ scores }) {
   }
 
   return (
-    <div className='w-1/4 text-center'>
+    <div className='w-1/4 lg:w-[15%] lg:ml-12 text-center'>
       <span className='text-xl'>Scores</span>
       <div>{scoreList()}</div>
     </div>

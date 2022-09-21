@@ -51,15 +51,6 @@ export default function GameField() {
     return () => clearInterval(timer);
    }, []);
 
-  // watch for win condition
-  /* useEffect(() => {
-    if (matches.length === (FIELDSIZE / 2)) { 
-      const newScores = [...scores, time];
-      setScores(newScores);
-      window.location.reload();
-    };
-  }, [matches]); */
-
   function toggleSelected(i, j) {
     /**
      * Toggle the 'selected' property of the (i, j) Square.
@@ -127,7 +118,8 @@ export default function GameField() {
       <div className='text-2xl'>Time: {time}</div>
       <div className='flex flex-row w-full'>
         <Sidebar scores={scores} />
-        <div className='grid grid-cols-4 grid-rows-4 mt-4'>
+        <div></div>
+        <div className='grid grid-cols-4 grid-rows-4 mt-4 lg:ml-48 xl:ml-[21em]'>
           {playfield()}
         </div>
       </div>

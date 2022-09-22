@@ -1,5 +1,4 @@
 import React from 'react';
-import Topbar from './components/Topbar';
 import Playfield from './components/Playfield';
 import './App.css';
 

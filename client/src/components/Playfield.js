@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Square from './Square';
 import Sidebar from './Sidebar';
-import Topbar from './Topbar';
 
 function initialState(n) {
   /**
@@ -48,7 +47,6 @@ export default function GameField() {
     const timer = setInterval(() => {
       setTime((time) => time + 1);
     }, 1000);
-
     return () => clearInterval(timer);
    }, []);
 
@@ -69,19 +67,28 @@ export default function GameField() {
       setTimeout(function() {
         checkForMatch(i, j);
         setSelected(null);
-        unselectedAll();
+        unselectAll();
       }, RESET_SELECTED_DELAY);
       return;
     };
     setSelected({ i: i, j: j });
   }
 
-  function unselectedAll() {
+  function unselectAll() {
+    /**
+     * Change 'selected' property to false for all squares in field array.
+     */
     const newField = field.map(square => { return {i: square.i, j: square.j, selected: false} });
     setField(newField);
   }
 
   function checkForMatch(i, j) {
+    /**
+     * Checks for match against the 'selected' state.
+     * Runs end game condition if matches is 1 less than the (FIELDSIZE / 2) - 1.
+     * The -1 is there because the rendered state will be 1 behind in the matches array
+     * until the component re-renders.
+     */
     // if match
     if (selected.i === i && selected.j !== j) {
       console.log(`match found: i: ${i}`);
@@ -92,13 +99,25 @@ export default function GameField() {
     }
     console.log(`matches: ${matches}`)
     if (matches.length === (FIELDSIZE / 2) -1) { 
-      const newScores = [...scores, time];
-      setScores(newScores);
-      window.location.reload();
+      win();
     }
   }
 
+  function win() {
+    /**
+     * Win the game.
+     * Adds current time to scores array.
+     * Reloads the window to restore the playfield.
+     */
+    const newScores = [...scores, time];
+    setScores(newScores);
+    window.location.reload();
+  }
+
   function playfield() {
+    /**
+     * Generates the playfield from the field array.
+     */
     return (
       field.map((square, index) => {
         return (

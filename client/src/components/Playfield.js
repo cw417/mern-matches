@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Square from './Square';
 import Sidebar from './Sidebar';
+import Topbar from './Topbar';
 
 function initialState(n) {
   /**
@@ -115,12 +116,17 @@ export default function GameField() {
 
   return (
     <div className='flex flex-col items-center w-full'>
-      <div className='text-2xl'>Time: {time}</div>
       <div className='flex flex-row w-full'>
-        <Sidebar scores={scores} />
-        <div></div>
-        <div className='grid grid-cols-4 grid-rows-4 mt-4 lg:ml-48 xl:ml-[21em]'>
-          {playfield()}
+        <div className='w-[12.5%] mt-12'>
+          <Sidebar scores={scores} />
+        </div>
+        <div className='flex flex-col text-center w-[87.5%]'>
+          <div className='text-4xl'>React Matches</div>
+          <div className='text-xl'>Try to find the pairs!</div>
+          <div className='text-2xl my-8'>Time: {time}</div>
+        <div className='grid grid-cols-4 grid-rows-4 gap-[2rem] m-auto'>
+            {playfield()}
+          </div>
         </div>
       </div>
     </div>

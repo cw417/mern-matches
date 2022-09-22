@@ -6,16 +6,16 @@ export default function Sidebar({ scores }) {
     return (
       scores.sort().map((score, index) => {
         return (
-          <div key={index}>{score}</div>
+          <div key={index} className='my-1'>{score}</div>
         )
       }
     ))
   }
 
   return (
-    <div className='w-1/4 lg:w-[15%] lg:ml-12 text-center'>
-      <span className='text-xl'>Scores</span>
-      <div>{scoreList()}</div>
+    <div className='text-center'>
+      <div className='text-3xl mb-6'>Scores</div>
+      <div className='text-xl'>{scoreList()}</div>
     </div>
   )
 }

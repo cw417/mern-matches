@@ -96,21 +96,16 @@ export default function GameField() {
         setMatches(prevMatches => [...prevMatches, i]);
        }
     }
-    console.log(`matches: ${matches}`)
-    if (matches.length === (FIELDSIZE / 2) -1) { 
-      win();
-    }
   }
 
-  function win() {
-    /**
-     * Win the game.
-     * Adds current time to scores array.
-     * Reloads the window to restore the playfield.
-     */
-    setScores(prevScores => [...prevScores, time]);
-    window.location.reload();
-  }
+  useEffect(() => {
+    if (matches.length === (FIELDSIZE / 2)) { 
+      setScores(prevScores => [...prevScores, time]);
+    setMatches([]);
+    setField(initialState(FIELDSIZE));
+    setTime(0);
+    }
+  }, [matches, time])
 
   function playfield() {
     /**

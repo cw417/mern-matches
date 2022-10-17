@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Sidebar({ sortedScores }) {
 
-  function scoreList() {
+  function renderScoreList() {
     return (
       sortedScores.map((score, index) => {
         return (
@@ -15,7 +15,7 @@ export default function Sidebar({ sortedScores }) {
   return (
     <div className='text-center'>
       <div className='text-3xl mb-6'>Scores</div>
-      <div className='text-xl'>{scoreList()}</div>
+      <div className='text-xl'>{renderScoreList()}</div>
     </div>
   )
 }

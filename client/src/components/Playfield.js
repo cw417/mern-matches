@@ -19,6 +19,16 @@ function initialState(num) {
   return returnArray;
 }
 
+const LOCAL_STORAGE_KEY = 'matchApp.scores'
+
+function initialScores() {
+    /**
+     * Get previous scores from local storage.
+     */
+    const storedScores = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    return (storedScores) ? storedScores : [];
+}
+
 const FIELDSIZE = 16;
 const RESET_SELECTED_DELAY = 500;
 
@@ -28,16 +38,8 @@ export default function GameField() {
   const [ selected, setSelected ] = useState(null);
   const [ matches, setMatches ] = useState([]);
   const [ time, setTime ] = useState(0);
-  const [ scores, setScores ] = useState([]);
+  const [ scores, setScores ] = useState(initialScores());
 
-  // local storage setup
-  const LOCAL_STORAGE_KEY = 'matchApp.scores'
-
-  // local storage setup
-  useEffect(() => {
-    const storedScores = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
-    if (storedScores) setScores(storedScores)
-  }, []);
 
   // local storage setup
   useEffect(() => {

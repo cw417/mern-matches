@@ -5,6 +5,8 @@ import Sidebar from './Sidebar';
 function initialState(num) {
   /**
    * Return array of n boolean elements in random order where each element is paired with another.
+   * Each pair has the same i value, and a j of either 0 or 1.
+   * A pair is made when two squares have the same i value but different j values.
    * @return {boolean[]}     Array of n boolean element pairs.
    */
   const returnArray = [];
@@ -22,7 +24,7 @@ const RESET_SELECTED_DELAY = 500;
 
 export default function GameField() {
   
-  const [ field, setField ] = useState(initialState(FIELDSIZE));
+  const [ fieldArray, setFieldArray ] = useState(initialState(FIELDSIZE));
   const [ selected, setSelected ] = useState(null);
   const [ matches, setMatches ] = useState([]);
   const [ time, setTime ] = useState(0);
@@ -55,13 +57,13 @@ export default function GameField() {
      * Toggle the 'selected' property of the (i, j) Square.
      */
     // toggle the given square
-    const currentSquare = field.find(square => square.i === i && square.j === j);
-    const index = field.indexOf(currentSquare);
+    const currentSquare = fieldArray.find(square => square.i === i && square.j === j);
+    const index = fieldArray.indexOf(currentSquare);
     const newSquare = {i: i, j: j, selected: !currentSquare.selected};
-    const newField = [...field];
+    const newField = [...fieldArray];
     newField.splice(index, 1, newSquare);
     
-    setField(newField);
+    setFieldArray(newField);
     if (selected) {
       // if already selected, check for match, set selected to null, reset all selected
       setTimeout(function() {
@@ -78,8 +80,8 @@ export default function GameField() {
     /**
      * Change 'selected' property to false for all squares in field array.
      */
-    const newField = field.map(square => { return {i: square.i, j: square.j, selected: false} });
-    setField(newField);
+    const newField = fieldArray.map(square => { return {i: square.i, j: square.j, selected: false} });
+    setFieldArray(newField);
   }
 
   function checkForMatch(i, j) {
@@ -102,17 +104,17 @@ export default function GameField() {
     if (matches.length === (FIELDSIZE / 2)) { 
       setScores(prevScores => [...prevScores, time]);
     setMatches([]);
-    setField(initialState(FIELDSIZE));
+    setFieldArray(initialState(FIELDSIZE));
     setTime(0);
     }
   }, [matches, time])
 
-  function playfield() {
+  function renderPlayfield() {
     /**
      * Generates the playfield from the field array.
      */
     return (
-      field.map((square, index) => {
+      fieldArray.map((square, index) => {
         return (
         <div key={index}>
           <Square
@@ -137,7 +139,7 @@ export default function GameField() {
           <div className='text-xl'>Try to find the pairs!</div>
           <div className='text-2xl my-8'>Time: {time}</div>
         <div className='grid grid-cols-4 grid-rows-4 gap-[2rem] m-auto'>
-            {playfield()}
+            {renderPlayfield()}
           </div>
         </div>
       </div>

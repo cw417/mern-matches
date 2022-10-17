@@ -4,9 +4,10 @@ import Sidebar from './Sidebar';
 
 function initialState(num) {
   /**
-   * Return array of n boolean elements in random order where each element is paired with another.
+   * Return array of n square objects with i and j properties in a random order,
+   * where each element is paired with another.
    * Each pair has the same i value, and a j of either 0 or 1.
-   * A pair is made when two squares have the same i value but different j values.
+   * A pair occurs when two squares have the same i value but different j values.
    * @return {boolean[]}     Array of n boolean element pairs.
    */
   const returnArray = [];

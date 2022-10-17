@@ -13,7 +13,7 @@ export default function Square({ square, matches, toggleSelected }) {
   return (
     <div 
       className='square'
-      onClick={() => handleClick()}
+      onClick={handleClick}
       style={{display: display, color: textColor, backgroundColor:backgroundColor}}
     >{`${square.i}`}</div>
   )

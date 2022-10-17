@@ -124,13 +124,12 @@ export default function GameField() {
     return (
       fieldArray.map((square, index) => {
         return (
-        <div key={index}>
           <Square
+          key={index}
           square={square}
           toggleSelected={toggleSelected}
           matches={matches}
           />
-        </div>
         )
       })
     )
@@ -139,14 +138,14 @@ export default function GameField() {
   return (
     <div className='flex flex-col items-center w-full'>
       <div className='flex flex-row w-full'>
-        <div className='w-[12.5%] mt-12'>
+        <div className='min-w-[12.5%] mt-12'>
           <Sidebar sortedScores={getSortedScores()} />
         </div>
         <div className='flex flex-col text-center w-[87.5%]'>
           <div className='text-4xl'>React Matches</div>
           <div className='text-xl'>Try to find the pairs!</div>
           <div className='text-2xl my-8'>Time: {time}</div>
-        <div className='grid grid-cols-4 grid-rows-4 gap-[2rem] m-auto'>
+        <div className='grid grid-cols-4 grid-rows-4 gap-4 lg:gap-8 m-auto'>
             {renderPlayfield()}
           </div>
         </div>

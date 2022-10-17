@@ -2,26 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Square from './Square';
 import Sidebar from './Sidebar';
 
-function initialState(n) {
+function initialState(num) {
   /**
    * Return array of n boolean elements in random order where each element is paired with another.
    * @return {boolean[]}     Array of n boolean element pairs.
    */
   const returnArray = [];
-  for (let i = 0; i < n/2; i++) {
+  for (let i = 0; i < num/2; i++) {
     for (let j = 0; j < 2; j++) {
-      const randNum = (Math.random() * n);
+      const randNum = (Math.random() * num);
       returnArray.splice(randNum, 0, {i: i, j: j, selected: false});
     }
   }
   return returnArray;
 }
 
+const FIELDSIZE = 16;
+const RESET_SELECTED_DELAY = 500;
+
 export default function GameField() {
   
-  const FIELDSIZE = 16;
-  const RESET_SELECTED_DELAY = 500;
-
   const [ field, setField ] = useState(initialState(FIELDSIZE));
   const [ selected, setSelected ] = useState(null);
   const [ matches, setMatches ] = useState([]);
@@ -93,8 +93,7 @@ export default function GameField() {
     if (selected.i === i && selected.j !== j) {
       console.log(`match found: i: ${i}`);
       if (!matches.includes(i)) { 
-        const newMatches = [...matches, i];
-        setMatches(newMatches);
+        setMatches(prevMatches => [...prevMatches, i]);
        }
     }
     console.log(`matches: ${matches}`)
@@ -109,8 +108,7 @@ export default function GameField() {
      * Adds current time to scores array.
      * Reloads the window to restore the playfield.
      */
-    const newScores = [...scores, time];
-    setScores(newScores);
+    setScores(prevScores => [...prevScores, time]);
     window.location.reload();
   }
 

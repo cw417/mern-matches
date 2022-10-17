@@ -1,10 +1,10 @@
 import React from 'react'
 
-export default function Sidebar({ scores }) {
+export default function Sidebar({ sortedScores }) {
 
   function scoreList() {
     return (
-      scores.sort().map((score, index) => {
+      sortedScores.map((score, index) => {
         return (
           <div key={index} className='my-1'>{score}</div>
         )

@@ -111,6 +111,11 @@ export default function GameField() {
     }
   }, [matches, time])
 
+  function getSortedScores() {
+    const newScores = [...scores];
+    return newScores.sort();
+  }
+
   function renderPlayfield() {
     /**
      * Generates the playfield from the field array.
@@ -134,7 +139,7 @@ export default function GameField() {
     <div className='flex flex-col items-center w-full'>
       <div className='flex flex-row w-full'>
         <div className='w-[12.5%] mt-12'>
-          <Sidebar scores={scores} />
+          <Sidebar sortedScores={getSortedScores()} />
         </div>
         <div className='flex flex-col text-center w-[87.5%]'>
           <div className='text-4xl'>React Matches</div>

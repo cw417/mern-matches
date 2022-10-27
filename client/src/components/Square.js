@@ -2,9 +2,9 @@ import React from 'react'
 
 export default function Square({ square, matches, toggleSelected }) {
 
-  const backgroundColor = square.selected ? 'blue' : 'yellow';
-  const textColor = square.selected ? 'white': 'yellow';
-  const display = matches.includes(square.i) ? 'none' : 'block';
+  const selectedClass = square.selected ? 'selected' : 'unselected';
+  const textOpacity = square.selected ? '1': '0';
+  const display = matches.includes(square.i) ? '0' : '1';
   
   function handleClick() {
     toggleSelected(square.i, square.j);
@@ -12,9 +12,9 @@ export default function Square({ square, matches, toggleSelected }) {
   
   return (
     <div 
-      className='square'
+      className={selectedClass}
       onClick={handleClick}
-      style={{display: display, color: textColor, backgroundColor:backgroundColor}}
-    >{`${square.i}`}</div>
+      style={{opacity: display}}
+    ><span style={{opacity: textOpacity}}>{`${square.i}`}</span></div>
   )
 }

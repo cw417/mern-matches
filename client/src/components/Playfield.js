@@ -135,18 +135,18 @@ export default function GameField() {
   }
 
   return (
-    <div className='flex flex-col items-center w-full'>
-      <div className='flex flex-row w-full'>
-        <div className='min-w-[10%] mt-12 ml-12'>
-          <Sidebar sortedScores={getSortedScores()} />
-        </div>
-        <div className='flex flex-col text-center w-[87.5%] mt-12'>
+    <div className='w-full'>
+      <div className='flex flex-col md:flex-row w-full'>
+        <div className='flex flex-col text-center w-full md:w-[87.5%] md:ml-[20%] mt-12'>
           <div className='text-4xl'>React Matches</div>
           <div className='text-xl'>Try to find the pairs!</div>
           <div className='text-2xl my-8'>Time: {time}</div>
-          <div className='grid grid-cols-4 grid-rows-4 gap-4 lg:gap-8 m-auto mt-8'>
+          <div className='grid grid-cols-4 grid-rows-4 gap-2 md:gap-4 m-auto mt-8'>
               {renderPlayfield()}
           </div>
+        </div>
+        <div className='w-full md:w-1/6 lg:w-1/4 md:mt-12 mr-16 lg:mr-32 xl:mr-48 float-right'>
+          <Sidebar sortedScores={getSortedScores()} />
         </div>
       </div>
     </div>

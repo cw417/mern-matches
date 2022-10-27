@@ -12,7 +12,7 @@ export default function Square({ square, matches, toggleSelected }) {
   
   return (
     <div 
-      className={selectedClass}
+      className={`shadow ${selectedClass}`}
       onClick={handleClick}
       style={{opacity: display}}
     ><span style={{opacity: textOpacity}}>{`${square.i}`}</span></div>
